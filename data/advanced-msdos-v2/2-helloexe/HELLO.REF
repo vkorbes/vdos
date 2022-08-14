@@ -1,0 +1,31 @@
+
+Microsoft Cross-Reference  Version 5.10	      Sun Aug 14 22:10:29 2022
+HELLO.EXE--print Hello on terminal                          
+
+  Symbol Cross-Reference	    (# definition, + modification)	Cref-1
+
+@CPU . . . . . . . . . . . . . .    1# 
+@VERSION . . . . . . . . . . . .    1# 
+
+CODE . . . . . . . . . . . . . .   13  
+CR . . . . . . . . . . . . . . .    9#    38     40  
+
+DATA . . . . . . . . . . . . . .   36  
+
+LF . . . . . . . . . . . . . . .   10#    38     40  
+
+MSG. . . . . . . . . . . . . . .   25     38# 
+MSG_LEN. . . . . . . . . . . . .   24     43# 
+
+PRINT. . . . . . . . . . . . . .   17#    31     57  
+
+STACK. . . . . . . . . . . . . .   15     48#    48     55  
+STDERR . . . . . . . . . . . . .    7# 
+STDIN. . . . . . . . . . . . . .    5# 
+STDOUT . . . . . . . . . . . . .    6#    23  
+
+_DATA. . . . . . . . . . . . . .   15     19     36#    45  
+_TEXT. . . . . . . . . . . . . .   13#    15     33  
+
+
+ 15 Symbols

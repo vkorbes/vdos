@@ -1,0 +1,107 @@
+Microsoft (R) Macro Assembler Version 5.10                  8/14/22 22:10:13
+HELLO.EXE--print Hello on terminal                          Page     1-1
+
+
+       1				        name    hello
+       2				        page    55,132
+       3				        title   HELLO.EXE--print Hello on terminal
+       4				
+       5 = 0000				stdin   equ     0   
+       6 = 0001				stdout  equ     1   
+       7 = 0002				stderr  equ     2   
+       8				
+       9 = 000D				cr      equ     0dh 
+      10 = 000A				lf      equ     0ah 
+      11				
+      12				
+      13 0000				_TEXT   segment word public 'CODE'
+      14				
+      15				        assume  cs:_TEXT,ds:_DATA,ss:STACK
+      16				
+      17 0000				print   proc    far
+      18				
+      19 0000  B8 ---- R		        mov     ax,_DATA
+      20 0003  8E D8			        mov     ds,ax
+      21				
+      22 0005  B4 40			        mov     ah,40h
+      23 0007  BB 0001			        mov     bx,stdout
+      24 000A  B9 0010 90		        mov     cx,msg_len
+      25 000E  BA 0000 R		        mov     dx,offset msg
+      26 0011  CD 21			        int     21h
+      27				
+      28 0013  B8 4C00			        mov     ax,4c00h
+      29 0016  CD 21			        int     21h
+      30				
+      31 0018				print   endp
+      32				
+      33 0018				_TEXT   ends
+      34				
+      35				
+      36 0000				_DATA   segment word public 'DATA'
+      37				
+      38 0000  0D 0A			msg     db      cr,lf
+      39 0002  48 65 6C 6C 6F 20	        db      'Hello World!',cr,lf
+      40       57 6F 72 6C 64 21	
+      41       0D 0A			
+      42				
+      43 = 0010				msg_len equ     $-msg
+      44				
+      45 0010				_DATA   ends
+      46				
+      47				
+      48 0000				STACK   segment para stack 'STACK'
+      49				
+      50 0000  0080[			        db      128 dup (?)
+      51	   ??			
+Microsoft (R) Macro Assembler Version 5.10                  8/14/22 22:10:13
+HELLO.EXE--print Hello on terminal                          Page     1-2
+
+
+      52			 ]	
+      53				
+      54				
+      55 0080				STACK   ends
+      56				
+      57				        end     print
+Microsoft (R) Macro Assembler Version 5.10                  8/14/22 22:10:13
+HELLO.EXE--print Hello on terminal                          Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+STACK  . . . . . . . . . . . . .  	0080	PARA	STACK	'STACK'
+_DATA  . . . . . . . . . . . . .  	0010	WORD	PUBLIC	'DATA'
+_TEXT  . . . . . . . . . . . . .  	0018	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CR . . . . . . . . . . . . . . .  	NUMBER	000D	
+
+LF . . . . . . . . . . . . . . .  	NUMBER	000A	
+
+MSG  . . . . . . . . . . . . . .  	L BYTE	0000	_DATA
+MSG_LEN  . . . . . . . . . . . .  	NUMBER	0010	
+
+PRINT  . . . . . . . . . . . . .  	F PROC	0000	_TEXT	Length = 0018
+
+STDERR . . . . . . . . . . . . .  	NUMBER	0002	
+STDIN  . . . . . . . . . . . . .  	NUMBER	0000	
+STDOUT . . . . . . . . . . . . .  	NUMBER	0001	
+
+@CPU . . . . . . . . . . . . . .  	TEXT  0101h		
+@FILENAME  . . . . . . . . . . .  	TEXT  hello		
+@VERSION . . . . . . . . . . . .  	TEXT  510		
+
+
+     52 Source  Lines
+     52 Total   Lines
+     22 Symbols
+
+  47472 + 463867 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

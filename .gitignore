@@ -1,0 +1,7 @@
+**/loot
+**/floppies
+**/environments
+*.CRF
+*.EXE
+*.OBJ
+.DS_Store

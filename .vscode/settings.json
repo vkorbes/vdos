@@ -1,0 +1,6 @@
+{
+    "files.eol": "\r\n",
+    "files.associations": {
+        "HELLO.C": "cpp"
+    } // CRLF line endings
+}
