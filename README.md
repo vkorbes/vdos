@@ -6,26 +6,31 @@ V's notes on MS-DOS programming.
 
 # DOSBox Setup
 
-install (not tested): `brew install dosbox`
+Install (not tested): `brew install dosbox`
 
-to generate config file: `config -writeconf file.conf`
+Generate config file: `config -writeconf file.conf`
 
-fn+f10 unlocks mouse!
+FN+F10 unlocks the mouse!
 
-changes:
+changes to config:
 
+See the top of `DOSBox.conf` for how to configure separate "environments." Main changes for all environments are:
 ```
+[sdl]
 fullresolution=desktop
 aspect=true
 autolock=false
+
 ...
+
+[autoexec]
 mount c ~/code/vdos/
 c:
 ```
 
-run with: `/Applications/dosbox.app/Contents/MacOS/DOSBox -conf DOSBox.conf`
+You can run it on the command line with: `/Applications/dosbox.app/Contents/MacOS/DOSBox -conf DOSBox.conf`
 
-can pass commands at start e.g.: `./run.sh -c "mount a floppies/tc201"`
+And use `run.sh` to pass start-up commands, e.g.: `./run.sh -c "mount a floppies/tc201"`
 
 # QEMU Setup
 
@@ -35,64 +40,80 @@ can pass commands at start e.g.: `./run.sh -c "mount a floppies/tc201"`
 - Start with: `qemu-system-i386 -hda msdos.disk -m 64 -soundhw sb16,adlib,pcspk
 `
 
-Read this later for network: https://virtuallyfun.com/wordpress/category/install/
-And shared drives: https://superuser.com/questions/1630317/how-to-transfer-files-from-host-to-dos-qemu-c-drive
+To-do:
+- Read this later for network: https://virtuallyfun.com/wordpress/category/install/
+- And shared drives: https://superuser.com/questions/1630317/how-to-transfer-files-from-host-to-dos-qemu-c-drive
 
-# turbo c 2.01
+# VSCode Setup
 
-- installer: `loot/tc201.zip`
-- page: https://web.archive.org/web/20060516050946/http://community.borland.com/article/0,1410,20841,00.html
-- download: https://web.archive.org/web/20060516050946/http://community.borland.com/article/images/20841/tc201.zip
-- unzip all disks to the same folder
-- `mount a [folder]`
+So that files created with VSCode are compatible with MS-DOS, `.vscode/settings.json` has the following config:
 
-# utils
+```
+{
+    "files.eol": "\r\n" // CRLF line endings
+}
+```
 
-edit.exe copied from freedos
-exe2bin.com copied from freedos
-debug.com copied from freedos
+# Turbo C 2.01
 
-ls.bat is `dir/w/p`
+- [Description page](https://web.archive.org/web/20060516050946/http://community.borland.com/article/0,1410,20841,00.html) (archive.org)
+- [Download link](https://web.archive.org/web/20060516050946/http://community.borland.com/article/images/20841/tc201.zip) (archive.org)
+- To install:
+  - Unzip all disks to the same folder
+  - On DOSBox: `mount a [folder]`
 
-compile.bat:
+# Utilities
 
+For DOSBox, some utilities were copied from FreeDOS:
+- edit.exe
+- exe2bin.com
+- debug.com
+
+They should be present by default on vanilla (non-DOSBox) versions of MS-DOS.
+
+`ls` replacement `ls.bat`:
+```
+`dir/w/p`
+```
+
+`compile.bat` for Turbo C:
 ```
 rescan
 tcc -ml %1
 ```
 
-on bat files:
-- dir & echo foo         # two commands
-- dir && echo foo        # second only runs if first succeeds
+For BAT files in general:
+- `dir & echo foo` runs two commands
+- `dir && echo foo` runs the second only runs if the first succeeds
 
 
 # Books
 
 ## Assembly Primer for the IBM PC & XT
 
-See README.md in `data/assembly-primer-ibm-pc/`.
+Notes on the material plus example code transcription at [`data/assembly-primer-ibm-pc/`](data/assembly-primer-ibm-pc/README.md).
 
-## advanced ms-dos, ray duncan
+## Advanced MS-DOS, Ray Duncan
 
-- masm 4
-  - https://winworldpc.com/product/macro-assembler/4x
-- msc 3
-  - https://winworldpc.com/product/microsoft-c-c/3x
+Requires:
+- [Microsoft Macro Assembler 4](https://winworldpc.com/product/macro-assembler/4x)
+- [Microsoft C Compiler 3](https://winworldpc.com/product/microsoft-c-c/3x)
 
-## advanced ms-dos, ray duncan 2nd ed
+## Advanced MS-DOS, Ray Duncan - 2nd Edition
 
-- masm 5.1
+Requires:
+- Microsoft Macro Assembler 5.1
 
 ## Assembly Language Step-by-Step: Programming with DOS and Linux, Second Edition
 
-- http://www.staroceans.org/kernel-and-driver/Assembly%20Language%20Step-by-Step%20Programming%20with%20DOS%20and%20Linux%202nd.pdf
+- [Download link](http://www.staroceans.org/kernel-and-driver/Assembly%20Language%20Step-by-Step%20Programming%20with%20DOS%20and%20Linux%202nd.pdf)
 
-## Programming with 64-Bit ARM Assembly Language
+## Programming with 64-Bit ARM Assembly Language, Stephen Smith
 
-- mac version: https://smist08.wordpress.com/2021/01/08/apple-m1-assembly-language-hello-world/
-- An introduction to ARM64 assembly on Apple Silicon Macs: https://github.com/below/HelloSilicon
+- Author's blog about using the book for M1 macs: [Apple M1 Assembly Language Hello World](https://smist08.wordpress.com/2021/01/08/apple-m1-assembly-language-hello-world/).
+- Code from the book ported to M1/macOS: [HelloSilicon](https://github.com/below/HelloSilicon).
 
-# links
+# Links (untriaged)
 
 - https://project-awesome.org/balintkissdev/awesome-dos
 - Microsoft KnowledgeBase Archive: https://github.com/jeffpar/kbarchive
@@ -111,6 +132,7 @@ See README.md in `data/assembly-primer-ibm-pc/`.
 - dosbox: https://www.dosbox.com/
 - 8086tiny: https://github.com/adriancable/8086tiny
 - Emulating Windows XP x86 under M1 Mac via UTM & QEMU: https://tinyapps.org/blog/202105220715_m1_mac_emulate_x86.html
+- dosbox change color: https://stackoverflow.com/questions/36219498/change-the-background-color-of-dosbox-console-when-executing-a-tasm-program
 
 ## assembly
 
@@ -192,8 +214,3 @@ See README.md in `data/assembly-primer-ibm-pc/`.
 
 
 
-
-
-######################################################
-
-dosbox change color: https://stackoverflow.com/questions/36219498/change-the-background-color-of-dosbox-console-when-executing-a-tasm-program

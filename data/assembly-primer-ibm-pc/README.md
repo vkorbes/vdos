@@ -102,6 +102,11 @@ Program terminated normally (0000)
 -
 ```
 
+"Breakpoint:"
+```
+-g 11b
+```
+
 ### Unassemble:
 
 ```
@@ -126,6 +131,23 @@ AX 0000 :1234
 -rax
 AX 1234 :_
 ````
+
+Flags:
+```
+-rf
+```
+
+```
+Flag Name:                      Set:    Clear:
+Overflow (yes/no)               OV      NV
+Direction (decrement/increment) DN      UP
+Interrupt (enable/disable)      EI      DI
+Sign (negative/positive)        NG      PL
+Zero (yes/no)                   ZR      NZ
+Auxilliary Carry (yes/no)       AC      NA
+Parity (even/odd)               PE      PO
+Carry (yes/no)                  CY      NC
+```
 
 ### Saving to disk:
 
@@ -303,3 +325,337 @@ next:
 prognam ends                ; end of segment
 
         end                 ; end of assembly
+```
+
+Go to page 136 for LST introduction.
+
+COMASM.BAT:
+
+```
+asm %1 %1 nul nul
+link %1 @autolink
+erase %1.bak
+erase %1.obj
+exe2bin %1 %1.com
+erase %1.exe
+```
+
+AUTOLINK file needs 4 carriage returns.
+
+## 6 - Using the IBM MACRO Assembler
+
+BINIHEX.ASM
+
+```
+prognam segment         ; start of segment
+
+        assume cs:prognam
+
+        mov  ch,4       ; number of digits
+rotate: mov  cl,4       ; set count to 4 bits
+        rol  bx,cl      ; left digit to right
+        mov  al,bl      ; move to AL
+        and  al,0fh     ; mask off left digit
+        add  al,30h     ; convert hex to ASCII
+        cmp  al,3ah     ; is it > 9?
+        jl   printit    ; jump if digit =0 or 9
+        add  al,7h      ; digit is A to F
+printit:
+        mov  dl,al      ; put ASCII char in DL
+        mov  ah,2       ; Display Output funct
+        int  21h        ; call DOS
+        dec  ch         ; done 4 digits?
+        jnz  rotate     ; not yet
+
+        int  20h        ; return to DEBUG
+
+prognam ends
+
+        end
+```
+
+```
+debug binihex.com
+-rbx
+BX 0000
+:1234
+-g
+1234
+```
+
+DECIBIN.ASM:
+
+```
+; DECIBIN--Program to get decimal digits
+;          from keyboard and convert them
+;          to binary number in BX
+
+prognam segment
+
+        assume cs:prognam
+
+        mov     bx,0    ; clear BX for number
+
+; Get digit from keyboard, convert to binary
+newchar:
+        mov  ah,1       ; keyboard input
+        int  21h        ; call DOS
+        sub  al,30h     ; ASCII to binary
+        jl   exit       ; jump if < 0
+        cmp  al,9d      ; is it > 9d ?
+        jg   exit       ; yes, not dec digit
+        cbw  ; byte in AL to word in AX
+; (digit is now in A)
+; Multiply number in BX by 10 decimal
+        xchg ax,bx      ; trade digit & number
+        mov  cx,10d     ; put 10 dec in CX
+        mul  cx         ; number times 10
+        xchg ax,bx      ; trade number & digit
+
+; Add digit in AX to number in BX
+        add  bx,ax      ; add digit to number
+        jmp  newchar    ; get next digit
+
+exit:
+        int 20h
+
+prognam ends
+
+        end
+```
+
+DECIHEX.ASM:
+
+```
+; DECIHEX--Main Program
+;   Converts decimal on keybd to hex on screen
+; *********************************************
+
+decihex segment
+        assume cs:decihex
+
+; MAIN PART OF PROGRAM.  Connects procedures
+;   together.
+
+repeat: call    decibin ;keyboard to binary
+        call    crlf    ;print cr and lf
+
+        call    binihex ;binary to screen
+        call    crlf    ;print cr and lf
+
+        jmp     repeat  ;do it again
+
+;---------------------------------------------
+;PROCEDURE TO CONVERT DEC ON KEYBD TO BINARY
+;  Result is left in BX register
+
+decibin proc    near
+
+        mov     bx,0    ;clear BX for number
+
+;Get digit from keyboard, converto to binary
+newchar:
+        mov     ah,1    ;keyboard input
+        int     21h     ;call DOS
+        sub     al,30h  ;ASCII to binary
+        jl      exit    ;jump if < 0
+        cmp     al,9d   ;is it > 9d ?
+        jg      exit    ;yes, not dec digit
+        cbw     ;byte in AL to word in AX
+;(digit is now in AX)
+
+;Multiply number in bx by 10 decimal
+        xchg    ax,bx   ;trade digit & number
+        mov     cx,10d  ;put 10 dec in CX
+        mul     cx      ;number times 10
+        xchg    ax,bx   ;trade number & digit
+
+;Add digit in ax to number in bx
+        add     bx,ax   ;add digit to number
+        jmp     newchar ;get next digit
+exit:
+        ret             ;return from decibin
+
+decibin endp
+
+;---------------------------------------------
+;PROCEDURE TO CONVERT BINARY NUMBER IN BX
+;  TO HEX ON CONSOLE SCREEN
+
+binihex proc    near
+
+        mov     ch,4    ;number of digits
+rotate: mov     cl,4    ;set count to 4 bits
+        rol     bx,cl   ;left digit to right
+        mov     al,bl   ;move to AL
+        and     al,0fh  ;mask off left digit
+        add     al,30h  ;convert hex to ASCII
+        cmp     al,3ah  ;is it > 9 ?
+        jl      printit ;jump if digit = 0 to 9
+        add     al,7h   ;digit is A to F
+printit:
+        mov     dl,al   ;put ASCII char in DL
+        mov     ah,2    ;Display Output funct
+        int     21h     ;call DOS
+        dec     ch      ;done 4 digits?
+        jnz     rotate  ;not yet
+
+        ret             ;return from binihex
+
+binihex endp
+
+;---------------------------------------------
+;PROCEDURE TO PRINT CARRIAGE RETURN
+;        AND LINEFEED
+
+crlf    proc    near
+
+        mov     dl,0dh  ;carriage return
+        mov     ah,2    ;display function
+        int     21h     ;call DOS
+
+        mov     dl,0ah  ;linefeed
+        mov     ah,2    ;display function
+        int     21h     ;call DOS
+
+        ret             ;return from crlf
+
+crlf    endp
+
+;---------------------------------------------
+decihex ends
+;*********************************************
+
+        end
+```
+
+PAGE turns on line numbering on LST.
+
+```
+        page
+
+; DECIHEX--Main Program
+...
+```
+
+Check out CREF program.
+
+## 7 - How Does It Sound?
+
+The White Noise Program:
+
+```
+;NOISE--Makes a sound with the speaker
+;  can't be stopped except by reset
+;*********************************************
+
+prognam segment ;define code segment
+
+;---------------------------------------------
+main    proc    far     ;main part of the program
+
+        assume  cs:program
+
+        org     100h    ;start of program
+
+start:                  ;starting execution address
+
+        mov     dx,140h ;initial value of wait
+
+        in      al,61h      ;get port 61
+        and     al,11111100b    ;AND off bits 0,1
+sound:  xor     al,2        ;toggle bit #1 in AL
+        out     61h,al      ;output to port 61
+        add     dx,9248h    ;add random pattern
+        mov     cl,3        ;set to rotate 3 bits
+        ror     dx,cl       ;rotate it
+
+        mov     cx,dx       ;put in CX
+        and     cx,1ffh     ;mask off upper 7 bits
+        or      cx,10       ;ensure not too short
+
+wait:   loop    wait        ;wait
+        jmp     sound       ;keep on toggling
+
+main    endp        ;end of main part of program
+;---------------------------------------------
+prognam ends        ;end of code segment
+;*********************************************
+
+        end     start       ;end assembly
+```
+
+The Machine Gun Program:
+
+```
+;GUN--Makes machine gun sound
+;  fires fixed number of shots
+;*********************************************
+
+prognam segment ;define code segment
+
+;---------------------------------------------
+main    proc    far         ;main part of program
+
+        assume  cs:program
+
+        org     100h        ;start of program
+
+start:          ;starting execution address
+
+        mov     cx,20d      ;set number of shots
+new_shot:
+        push    cx          ;save count
+        call    shoot       ;sound of shot
+        mov     cx,4000h    ;set up silent delay
+silent: loop    silent      ;silent delay
+        pop     cx          ;get shots count back
+        loop    new_shot    ;loop till shots done
+        int     20h         ;return to DOS
+
+main    endp    ;end of main part of program
+;---------------------------------------------
+;SUBROUTINE TO MAKE BRIEF NOISE
+
+shoot   proc    near
+
+        mov     dx,140h     ;initial value of wait
+        mov     bx,20h      ;set count
+
+        in      al,61h      ;get port 61h
+        and     al,11111100b ;AND off bits #0, #1
+
+sound:  xor     al,2        ;toggle bit #1 in AL
+        out     61h,al      ;toggle to port 61
+
+        add     dx,9248h    ;add random bit pattern
+        mov     cl,3        ;set to rotate 3 bits
+        ror     dx,cl       ;rotate it
+
+        mov     cx,dx       ;put in CX
+        and     cx,1ffh     ;mask off upper 7 bits
+        or      cx,10       ;ensure not too short
+
+wait:   loop    wait        ;wait
+
+
+;made noise long enough?
+        dec     bx          ;done enough?
+        jnz     sound       ;jump if not yet
+
+;turn off sound
+        and     al,11111100b ;AND off bits 0, 1
+        out     61h,al      ;turn off bits 0, 1
+
+        ret                 ;return from subr
+
+shoot   endp
+;---------------------------------------------
+prognam ends        ;end of code segment
+;*********************************************
+
+        end     start       ;end assembly
+```
+
+The SIREN Program:
+
