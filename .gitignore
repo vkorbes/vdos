@@ -3,5 +3,8 @@
 **/environments
 *.CRF
 *.EXE
+*.COM
 *.OBJ
+*.disk
 .DS_Store
+**/COMS
