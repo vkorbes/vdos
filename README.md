@@ -91,7 +91,7 @@ For BAT files in general:
 
 ## Assembly Primer for the IBM PC & XT
 
-Notes on the material plus example code transcription at [`data/assembly-primer-ibm-pc/`](data/assembly-primer-ibm-pc/README.md).
+Notes on the material plus example code transcription at [`data/assembly-primer-ibm-pc/`](books/assembly-primer-ibm-pc/README.md).
 
 ## Advanced MS-DOS, Ray Duncan
 
@@ -167,7 +167,8 @@ Requires:
 - ibm bios source code: https://pcdosretro.github.io
 - [MS-DOS 6.22 Bootable ISO](https://archive.org/details/ms-dos-6.22_dvd) (Didn't work for QEMU!)
 
-
+- minesweeper game: https://github.com/ArqueologiaDigital/Mines
+  - msdos version: https://github.com/ArqueologiaDigital/Mines/tree/main/platforms/msdos
 
 ## raycasting project
 
@@ -212,5 +213,7 @@ Requires:
 - dosgames listing 3d games: https://dosgames.com/listing.php?sortby=ratingdesc&sterms2=&cat=3d-shooting&tag=&license=all&year=all&filesize=all&developer=all&publisher=all
 - What were the best 3d polygon graphics in a dos game? (reddit): https://www.reddit.com/r/dosgaming/comments/f5fsuy/comment/fhzi0up/?utm_source=reddit&utm_medium=web2x&context=3
 
+## other
 
+- vintage mac books https://vintageapple.org/macprogramming/
 
