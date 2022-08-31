@@ -25,7 +25,7 @@ prognam segment         ;define code segment
 
 main    proc    far     ;main part of program
 
-        assume  cs:program,ds:datarea
+        assume  cs:prognam,ds:datarea
 
 start:          ;starting execution address
 
