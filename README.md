@@ -117,6 +117,7 @@ Requires:
 
 - https://project-awesome.org/balintkissdev/awesome-dos
 - Microsoft KnowledgeBase Archive: https://github.com/jeffpar/kbarchive
+- code from 'programming boot sector games': https://github.com/nanochess/book8088
 
 ## old software
 
@@ -212,6 +213,15 @@ Requires:
 - tfx combat flight simulator: https://en.wikipedia.org/wiki/TFX_(video_game)
 - dosgames listing 3d games: https://dosgames.com/listing.php?sortby=ratingdesc&sterms2=&cat=3d-shooting&tag=&license=all&year=all&filesize=all&developer=all&publisher=all
 - What were the best 3d polygon graphics in a dos game? (reddit): https://www.reddit.com/r/dosgaming/comments/f5fsuy/comment/fhzi0up/?utm_source=reddit&utm_medium=web2x&context=3
+
+- id software games:
+  - https://github.com/id-Software/wolf3d
+  - https://github.com/id-Software/DOOM
+  - https://github.com/id-Software/Quake
+
+- someone's wolfenstein 3d in asm using sdl2: https://github.com/Antonito/wolfASM
+- Raycasting-Engine-MASM-32: https://github.com/ilay122/Raycasting-Engine-MASM-32
+
 
 ## other
 
