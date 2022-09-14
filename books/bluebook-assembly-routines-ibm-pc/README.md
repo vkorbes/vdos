@@ -1,0 +1,117 @@
+# Bluebook of Assembly Routines For The IBM PC & XT
+
+Routines list:
+
+1. Introduction
+1. [Input/Output](02-input-output/)
+   1.  [STDIN](02-input-output/01-STDIN.ASM)
+   2.  [STDINNE](02-input-output/02-STDINNE.ASM)
+   3.  [STDINCK](02-input-output/03-STDINCK.ASM)
+   4.  [STDOUT](02-input-output/04-STDOUT.ASM)
+   5.  [STDOUTDR](02-input-output/05-STDOUTDR.ASM)
+   6.  [STDCRLF](02-input-output/06-STDCRLF.ASM)
+   7.  [STDSPACE](02-input-output/07-STDSPACE.ASM)
+   8.  [STDMESSOUT](02-input-output/08-STDMESSOUT.ASM)
+   9.  [COMINIT](02-input-output/09-COMINIT.ASM)
+   10. [COMINCK](02-input-output/10-COMINCK.ASM)
+   11. [COMOUT](02-input-output/11-COMOUT.ASM)
+   12. [COMON](02-input-output/12-COMON.ASM)
+   13. [COMOFF](02-input-output/13-COMOFF.ASM)
+1. Binary Conversions
+   1.  BIN16IN
+   2.  BIN8OUT
+   3.  BIN16OUT
+   4.  OCT16IN
+   5.  OCT8OUT
+   6.  OCT16OUT
+   7.  HEX16IN
+   8.  HEX8OUT
+   9.  HEX16OUT
+   10. DEC16IN
+   11. DEC8OUT
+   12. DEC16OUT
+1. BCD Conversions
+   1.  BCDIN
+   2.  BCDOUT
+   3.  BCD2I16
+   4.  I162BCD
+1. Floating Point Conversion
+   1.  SGNDEC16IN
+   2.  TFP2SFP
+   3.  FPINDIGIT
+   4.  FPTNORM
+   5.  FPTMUL
+   6.  FPTDIV
+   7.  FPIN
+   8.  SFP2TFP
+   9.  TDECSHOW
+   10. BIN802DEC
+   11. DECNORM
+   12. DECHALF
+   13. DECDOUBLE
+   14. FPOUT
+   15. FIX
+   16. FLOAT
+   17. SFP2DFP
+   18. DFP2SFP
+1. Multidigit Arithmetic
+   1.  MBINADD
+   2.  MBINSUB
+   3.  MBINMUL
+   4.  MBINDIV
+1. Graphics
+   1.  CLS
+   2.  SETPT
+   3.  XORPT
+   4.  LOCATE
+   5.  SETBOX
+   6.  XORBOX
+   7.  SETLINE
+   8.  SCHAR
+   9.  RCHAR
+   10. GMESSOUT
+   11. PAINT
+1. Sound
+   1.  TONEINIT
+   2.  TONESET
+   3.  TONEON
+   4.  TONEOFF
+   5.  DELAY
+   6.  FREQ
+   7.  TONE
+   8.  SCALE
+   9.  RANDOM
+   10. WHITE
+   11. GUN
+   12. GLISSANDO
+   13. RED
+   14. PITCH
+   15. PLAY
+   16. VICTORY
+   17. HORN
+1. Strings
+   1.  LOWERCASE
+   2.  UPPERCASE
+   3.  STRSEARCH
+   4.  STRINSERT
+   5.  LEXSEARCH
+   6.  LEXINSERT
+   7.  COMPARE
+   8.  SWITCH
+   9.  BSORT
+1. File Manipulation
+   1.  EMESSOUT
+   2.  GETSPEC
+   3.  CREATEFILE
+   4.  CLOSEFILE
+   5.  WRITEFILE
+   6.  READFILE
+   7.  INITCBUFF
+   8.  PUTCBUFF
+   9.  INCBUFF
+   10. FLUSHIT
+   11. OUTCBUFF
+   12. SAVE
+   13. CRFILTER
+   14. WSFILTER
+   15. COUNT
