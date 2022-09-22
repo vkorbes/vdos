@@ -236,3 +236,8 @@ Requires:
 - vintage mac books: https://vintageapple.org/macprogramming/
 - game engine book recs: https://www.reddit.com/r/gamedev/comments/2c5d3u/best_books_about_game_engine_design/
 
+
+
+
+
+https://electronics.stackexchange.com/questions/11386/where-can-i-find-an-8086-chip
