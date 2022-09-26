@@ -84,27 +84,27 @@ EXAMPLE 1-1
 EXAMPLE 2-1
 
 ```
-100
-110
-120
-130
-140
-150
-160
-170
-180
-190
-200
-210
-220
-230
-240
-250
-260
-270
-280
-290
-300
+100 ' TEXT
+110 ' 
+120 ' Displays text characters in
+130 ' various colors.
+140 ' 
+150   SCREEN 0,1
+160   WIDTH 40
+170   CLS
+180 ' 
+190   PRINT TAB(18);"TEXT"
+200 ' 
+210   PRINT:PRINT:PRINT
+220   FOR I = 0 TO 7
+230    FOR J = 0 TO 31
+240     COLOR J, I, 1
+250     PRINT "A";
+260    NEXT J
+270    PRINT
+280   NEXT I
+290   
+300   COLOR 15,0, 1
 ```
 
 ***
@@ -112,31 +112,31 @@ EXAMPLE 2-1
 EXAMPLE 2-2
 
 ```
-100
-110
-120
-130
-140
-150
-160
-170
-180
-190
-200
-210
-220
-230
-240
-250
-260
-270
-280
-290
-300
-310
-320
-330
-340
+100 ' CHRACTER PLOTTER
+110 ' 
+120   SCREEN 0,1
+130   WIDTH 40
+140   KEY OFF
+150 ' 
+160   CLS
+170 ' 
+180   INPUT "Row (1-24)"; ROW
+190   INPUT "Column (1-40)"; COLUMN
+200   INPUT "ASCII Code (0-255)";ACODE
+210   INPUT "Foreground (0-15)"; FCOLOR
+220   INPUT "Background (0-7)"; BCOLOR
+230   INPUT "Blink (0 or 1)"; BLINK
+240 ' 
+250   FBYTE = 80*(ROW-1)+2*(COLUMN-1)
+260   CN = 128*BLINK+16*BCOLOR+FCOLOR
+270 ' 
+280   CLS
+290   DEF SEG = &HB800
+300   POKE FBYTE,ACODE
+310   POKE FBYTE+1,CN
+320 ' 
+330   A$=INPUT$(1)
+340   GOTO 160
 ```
 
 ***
@@ -144,36 +144,36 @@ EXAMPLE 2-2
 EXAMPLE 2-3
 
 ```
-100
-110
-120
-130
-140
-150
-160
-170
-180
-190
-200
-210
-220
-230
-240
-250
-260
-270
-280
-290
-300
-310
-320
-330
-340
-350
-360
-370
-380
-390
+100 ' MEDIUM
+110 ' 
+120 ' In this example we draw four
+130 ' boxes, one for each of the four
+140 ' available colors. At the end
+150 ' we cycle through the various
+160 ' background colors and palettes.
+170 ' 
+180   SCREEN 1
+190   CLS
+200 ' 
+210   PRINT TAB(12);
+220   PRINT "Medium Resolution
+230 ' 
+240 ' make the boxes
+250   LINE ( 40, 40)-(160,100),0,BF
+260   LINE (160, 40)-(280,100),1,BF
+270   LINE ( 40,100)-(160,160),2,BF
+280   LINE (160,100)-(280,160),3,BF
+290 ' 
+300 ' NOW CYCLE THROUGH THE
+310 ' BACKGROUND COLORS AND PALETTES
+320   FOR I = 0 TO 15 ' foreground
+330    COLOR I,0 ' palette 0
+340    FOR J= 1 TO 1000:NEXT J ' wait
+350    COLOR I,1 ' palette 1
+360    FOR J= 1 TO 1000;NEXT J ' wait
+370   NEXT I
+380   
+390   COLOR 0,1
 ```
 
 ***
